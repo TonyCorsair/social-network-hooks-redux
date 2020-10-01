@@ -1,0 +1,32 @@
+@import "./src/styles/index";
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+
+
+  border-radius: 10px;
+  background-color: $PrimaryMain;
+
+  position: absolute;
+  top:100px;
+
+  width: 100%;
+  max-width: 300px;
+
+   &__logo {
+     color: white;
+     text-transform: uppercase;
+     text-align: center;
+     font-size: 30px;
+   }
+
+  &__items {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 20px;
+  }
+
+}

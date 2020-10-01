@@ -1,0 +1,26 @@
+/**
+ * Common
+ */
+
+.root {
+  position: relative;
+  min-width: 360px;
+}
+
+.img-cover {
+  max-width: 100%;
+  display: block;
+  height: auto;
+  object-fit: cover;
+}
+
+.img-contain {
+  max-width: 100%;
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+.App {
+  padding: 0 16px;
+}

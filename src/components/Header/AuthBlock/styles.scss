@@ -1,0 +1,14 @@
+.auth-block {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 160px;
+  &__is-authorized{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  & button{
+    border-radius: 10px;
+  }
+}

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import axios from "../../../API/AXIOS/axiosApi";
-
-///////History
-import { history } from "../../../index";
-
+//////////authActions
+import { getTokenAndLogin } from "../../../API/AXIOS/authActions";
 /////Context
 import { useAuth } from "../../../AppContext/AuthContext";
 import { useAlert } from "../../../AppContext/AlertContext";
@@ -19,34 +16,16 @@ export const LogInPage = () => {
   const { setToken } = useAuth();
   const { show } = useAlert();
 
-  function getTokenAndLogin(e) {
-    e.preventDefault();
-
-    axios
-      .post("/auth", {
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        // console.log(res);
-        setToken(res.data);
-        remember && localStorage.setItem("token", res.data.token);
-        !remember && sessionStorage.setItem("token", res.data.token);
-        history.push("/profile");
-      })
-
-      .catch((e) => {
-        show({
-          text: "ERR! No such user, your data is invalid :(",
-          variation: "orange",
-        });
-      });
-  }
-
   return (
     <div className="login">
       <h2>GOT AN ACCOUNT? LOG IN NOW!</h2>
-      <form className="login__form" onSubmit={getTokenAndLogin}>
+      <form
+        className="login__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          getTokenAndLogin(email, password, remember)(setToken, show);
+        }}
+      >
         <p>Enter your e-mail</p>
         <input
           placeholder="em@il"

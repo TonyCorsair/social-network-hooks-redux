@@ -13,7 +13,6 @@ export const useAuth = () => {
 const GET_USER_DATA = "GET_USER_DATA";
 const SET_TOKEN = "SET_TOKEN";
 const LOG_OUT = "LOG_OUT";
-const GET_CURRENT_USER = "GET_CURRENT_USER";
 /////////////////////
 
 const authReducer = (state, action) => {
@@ -26,16 +25,15 @@ const authReducer = (state, action) => {
       localStorage.removeItem("token");
       sessionStorage.removeItem("token");
       return { ...state, token: "" };
-    case GET_CURRENT_USER:
-      return { ...state };
     default:
       return state;
   }
 };
 
 export const AuthProvider = ({ children }) => {
+  //////////////////////////////
   const [state, dispatch] = useReducer(authReducer, {
-    userData: "",
+    userData: {},
     token:
       localStorage.getItem("token") || sessionStorage.getItem("token") || "",
   });
@@ -52,21 +50,16 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: LOG_OUT });
   };
 
-  const getCurrentUserByToken = () => {
-    dispatch({ type: GET_CURRENT_USER });
+  const authActions = {
+    userData: state.userData,
+    getUserData,
+    token: state.token,
+    setToken,
+    removeToken,
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        userData: state.userData,
-        getUserData,
-        token: state.token,
-        setToken,
-        getCurrentUserByToken,
-        removeToken,
-      }}
-    >
+    <AuthContext.Provider value={{ ...authActions }}>
       {children}
     </AuthContext.Provider>
   );

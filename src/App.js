@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { SignUpPage } from "./components/AuthPages/SignUpPage/SignUpPage";
 import { SignUpSuccessPage } from "./components/AuthPages/SignUpSuccessPage/SignUpSuccessPage";
 import { LogInPage } from "./components/AuthPages/LogInPage/LogInPage";
+import { Profile } from "./components/AppPages/Profile/Profile";
 
 /////////Context
 // import { AppProvider } from "./AppContext/AppContext";
@@ -18,7 +19,6 @@ import { Route } from "react-router-dom";
 
 ////////////styles
 import "./styles/index.scss";
-import { Profile } from "./components/AppPages/Profile/Profile";
 
 function App() {
   return (
@@ -33,6 +33,7 @@ function App() {
           <Route path="/signup-success" render={() => <SignUpSuccessPage />} />
           <Route path="/login" render={() => <LogInPage />} />
           <Route path="/profile" render={() => <Profile />} />
+          <Route path="/posts" render={() => <Posts />} />
         </div>
       </AlertProvider>
     </AuthProvider>

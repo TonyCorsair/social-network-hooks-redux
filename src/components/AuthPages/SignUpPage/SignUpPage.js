@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-
-import axios from "../../../API/AXIOS/axiosApi";
-
-///////History
-import { history } from "../../../index";
-
-////////Context
-import { useAlert } from "../../../AppContext/AlertContext";
+//////////authActions
+import { postUserDataToServer } from "../../../API/AXIOS/authActions";
+///////Context
 import { useAuth } from "../../../AppContext/AuthContext";
-
+import { useAlert } from "../../../AppContext/AlertContext";
 /////Styles
 import "./styles.scss";
 
@@ -16,39 +11,20 @@ export const SignUpPage = () => {
   const [email, setEmail] = useState("@gmail.com");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const { show } = useAlert();
   const { getUserData } = useAuth();
+  const { show } = useAlert();
   // console.log("getUserData", getUserData);
-
-  function postUserDataToServer(e) {
-    e.preventDefault();
-
-    axios
-      .post("/users", {
-        email: email,
-        password: password,
-        name: email,
-      })
-      .then((res) => {
-        getUserData(res.data);
-        // console.log("res.data", res.data);
-        history.push(`/signup-success`);
-      })
-      .catch((e) => {
-        console.log("e", e);
-        show({
-          text:
-            "REGISTRATION ERROR! Check if e-mail was valid , also check that password must have at least 5 symbols",
-          variation: "red",
-        });
-      });
-  }
 
   return (
     <div className="signup">
       <h2>Sign UP! Join US!</h2>
-      <form className="signup__form" onSubmit={postUserDataToServer}>
+      <form
+        className="signup__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          postUserDataToServer(email, password)(getUserData, show);
+        }}
+      >
         <p>Enter your email!</p>
         <input
           className="inputSignup"
